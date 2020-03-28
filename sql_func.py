@@ -28,10 +28,32 @@ def execute_query(connection, query):
 def convertTime(x, wbOBJ):
     year, month, day, hour, minute, second = xlrd.xldate_as_tuple(x, wbOBJ.datemode)
     return datetime.datetime(year, month, day, hour, minute, second)
-
+def convertTime_naive(x, datemode_):
+    year, month, day, hour, minute, second = xlrd.xldate_as_tuple(x, datemode_)
+    return datetime.datetime(year, month, day, hour, minute, second)
 def Sort(sub_li): 
     # reverse = None (Sorts in Ascending order) 
     # key is set to sort using second element of  
     # sublist lambda has been used 
     sub_li.sort(key = lambda x: x[0]) 
     return sub_li 
+def Sort2(sub_li): 
+    # reverse = None (Sorts in Ascending order) 
+    # key is set to sort using second element of  
+    # sublist lambda has been used 
+    sub_li.sort(key = lambda x: x[1]) 
+    return sub_li 
+months = {
+    1:"January",
+    2:"February",
+    3:"March",
+    4:"April",
+    5:"May",
+    6:"June",
+    7:"July",
+    8:"August",
+    9:"September",
+    10:"October",
+    11:"November",
+    12:"December"
+} 

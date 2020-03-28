@@ -1,4 +1,5 @@
 from sqlite3 import Error
+import os
 import xlrd
 from sql_func import execute_query, create_connection, convertTime, dbpath
 
@@ -10,6 +11,7 @@ sheet = wb.sheet_by_index(0)
 connection = create_connection(dbpath)
 row = 9
 cur = connection.cursor()
+
 runagain = True
 while runagain:
     if sheet.cell_value(row, 0) == sheet.cell_value(-1, 0):
@@ -33,7 +35,10 @@ while runagain:
         #if row > 10:
         create_alarm_table = "CREATE TABLE IF NOT EXISTS " + tblename + " (time FLOAT(23), duration_ms INTEGER, alarm_type varchar(50), area varchar(50), description varchar(255));"
         
-        create_alarm = "INSERT INTO " + tblename + " (time, duration_ms, alarm_type, area, description) VALUES ('" + str(time_val) + "', " + str(duration_ms) + ", '" + alarm_type_str + "', '" + area_str + "', '" + description_str + "');"
+        lis = list(description_str.split("'"))
+        
+        description_str2 = ''.join(lis)
+        create_alarm = "INSERT INTO " + tblename + " (time, duration_ms, alarm_type, area, description) VALUES ('" + str(time_val) + "', " + str(duration_ms) + ", '" + alarm_type_str + "', '" + area_str + "', '" + description_str2 + "');"
         if row < 0:
             print(create_alarm_table)
             print(create_alarm)
@@ -54,12 +59,13 @@ while runagain:
             execute_query(connection, create_alarm)
         #print("completed query")
     row += 1
-        
+    
         
 
 
 
 
  
-execute_query(connection, create_alarm_table)
-execute_query(connection, create_alarm)
+#execute_query(connection, create_alarm_table)
+#execute_query(connection, create_alarm)
+os.remove(file)
