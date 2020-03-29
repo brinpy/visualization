@@ -3,6 +3,8 @@ import datetime
 from sqlite3 import Error
 import xlrd
 dbpath = r"C:\Users\brinpy\Documents\sql\alarms.db"
+#def checkifU(strbed):
+#    if strbed.split()
 def excel_date(date1):
     temp = datetime.datetime(1899, 12, 30)    # Note, not 31st Dec but 30th!
     delta = date1 - temp
@@ -57,3 +59,10 @@ months = {
     11:"November",
     12:"December"
 } 
+def truncate(f, n):
+    '''Truncates/pads a float f to n decimal places without rounding'''
+    s = '{}'.format(f)
+    if 'e' in s or 'E' in s:
+        return '{0:.{1}f}'.format(f, n)
+    i, p, d = s.partition('.')
+    return '.'.join([i, (d+'0'*n)[:n]])
