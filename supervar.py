@@ -4,3 +4,4 @@ class vars():
         self.alarm_type = ''
         self.startDate = ''
         self.endDate = ''
+        self.id = ''

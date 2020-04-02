@@ -1,6 +1,6 @@
 import os
 import datetime
-from sql_func import dbpath, create_connection, execute_query, Sort2
+from sql_func import create_connection, execute_query, Sort2
 from checker import checkalarm
 
 def tryinsert(ls, val, pos):
@@ -15,7 +15,7 @@ def tryinsert(ls, val, pos):
         ls.insert(pos, val)
         return ls
 
-def generateReport(startd, endd, cxn, period, allowGraph, alarmtype, filterlevel):
+def generateReport(startd, endd, cxn, period, allowGraph, alarmtype, filterlevel, tid):
 
     report_table = {}
     report_table_avg = {}
@@ -25,10 +25,10 @@ def generateReport(startd, endd, cxn, period, allowGraph, alarmtype, filterlevel
     table_list = cur.fetchall()
     #print(type(table_list))
     #print(table_list)
-    #print(table_list[0][0])
-    for tble in table_list:
+    #print(table_list[0][0]) 
+    for tble in table_list: 
         #this grabs mf_lat only as checkalarm is only configured to give motor faults
-        report_table[tble[0]], report_table_avg[tble[0]] = checkalarm(bed_str=tble[0], fardate=startd, closedate=endd, connection=cxn, period=1,graph=False, alarm = alarmtype)
+        report_table[tble[0]], report_table_avg[tble[0]] = checkalarm(bed_str=tble[0], fardate=startd, closedate=endd, connection=cxn, period=1,graph=False, alarm = alarmtype, typeid = tid)
     lines = []
     #print(report_table)
     for key in report_table:

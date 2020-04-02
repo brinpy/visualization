@@ -2,7 +2,7 @@ import sqlite3
 import datetime
 from sqlite3 import Error
 import xlrd
-dbpath = r"C:\Users\brinpy\Documents\sql\alarms.db"
+
 #def checkifU(strbed):
 #    if strbed.split()
 def excel_date(date1):
