@@ -1,13 +1,14 @@
 from sqlite3 import Error
 import os
 import xlrd
-from sql_func import execute_query, create_connection, convertTime, dbpath
+from sql_func import execute_query, create_connection, convertTime
 
 file = r'C:\Users\brinpy\Downloads\AlarmsHistory.xls'
 wb = xlrd.open_workbook(file) 
 sheet = wb.sheet_by_index(0) 
 
-
+dbpath = r"C:\Users\brinpy\Documents\sql\alarms.db"
+dbpath = r"\\ant\dept-na\FTW1\Support\Facilities\z_Alarms\alarms.db"
 connection = create_connection(dbpath)
 row = 9
 cur = connection.cursor()

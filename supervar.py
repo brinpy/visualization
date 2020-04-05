@@ -5,3 +5,4 @@ class vars():
         self.startDate = ''
         self.endDate = ''
         self.id = ''
+        self.mylabels = [[],[],[],[],[]]
