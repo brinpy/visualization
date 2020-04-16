@@ -54,7 +54,7 @@ def checkalarm(bed_str = '', fardate = '', closedate = '', connection = None, pe
     for day in range(daysdelta):
         mflatch_day.append(0)
         jamlatch_day.append(0)
-    
+    fullrowdata = []
     #print(mflatch_day)
     for day in range(0, daysdelta, 1):
         #print("thisdate =")
@@ -69,15 +69,19 @@ def checkalarm(bed_str = '', fardate = '', closedate = '', connection = None, pe
             if (convertTime_naive(val, 0) < convertTime_naive(excel_date(datetime.datetime(fardate.year, fardate.month, fardate.day, fardate.hour, fardate.minute, fardate.second)) + 1 + day, 0)) and (convertTime_naive(val, 0) > convertTime_naive(excel_date(datetime.datetime(fardate.year, fardate.month, fardate.day, fardate.hour, fardate.minute, fardate.second)) + day, 0)):
                 #print("APPENDING VALUE")
                 if typeid == 'Duration':
-                   mflatch_day[day] += float(rows[mfrows[mflatch.index(val)]][1]) / 1000.0
+                    mflatch_day[day] += float(rows[mfrows[mflatch.index(val)]][1]) / 1000.0
+                    fullrowdata.append(rows[mfrows[mflatch.index(val)]])
                 elif typeid == 'Frequency':
-                    mflatch_day[day] += 1 
+                    mflatch_day[day] += 1
+                    fullrowdata.append(rows[mfrows[mflatch.index(val)]])
         for val in jamlatch:
             if (convertTime_naive(val, 0) < convertTime_naive(excel_date(datetime.datetime(fardate.year, fardate.month, fardate.day, fardate.hour, fardate.minute, fardate.second)) + 1 + day, 0)) and (convertTime_naive(val, 0) > convertTime_naive(excel_date(datetime.datetime(fardate.year, fardate.month, fardate.day, fardate.hour, fardate.minute, fardate.second)) + day, 0)): 
                 if typeid == 'Duration':
+                    fullrowdata.append(rows[jrows[jamlatch.index(val)]])
                     jamlatch_day[day] += float(rows[jrows[jamlatch.index(val)]][1]) / 1000.0
                 elif typeid == 'Frequency':
-                    jamlatch_day[day] += 1                    
+                    fullrowdata.append(rows[jrows[jamlatch.index(val)]])
+                    jamlatch_day[day] += 1
     dateay = []
     #print("DAYS DELTA = " + str(daysdelta))
     #print(mflatch_day)
@@ -183,6 +187,7 @@ def checkalarm(bed_str = '', fardate = '', closedate = '', connection = None, pe
     #    print(row)
     #    print(type(row))
     plt.subplots_adjust(bottom = .18)
+    return plt, fullrowdata
     plt.show()
         
     
