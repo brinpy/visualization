@@ -9,39 +9,12 @@ import sys
 
 version = ('0.3a')
 rowsLimit = 24
-a = '''
-dbpath = ''
-def createfilefunc():
-    f = open("dbpath.txt", 'x')
-    f.write(pathentry.get())
-    dbpath = pathentry.get()
-    f.close()
-    quit
-
-try:
-    fileo = open("dbpath.txt", 'r')
-    dbpath = fileo.read()
-    print(dbpath)
-    fileo.close()
-except FileNotFoundError:
-    root0 = tk.Tk()
-    pathlabel = tk.Label(root0, text = 'Enter database path below')
-    pathentry = tk.Entry(root0)
-    pathcontinue = tk.Button(root0, text = "Continue", command=createfilefunc)
-    pathlabel.grid(column=1, row=1)
-    pathentry.grid(column=1, row=2)
-    pathcontinue.grid(column=1,row=3)
-    root0.mainloop()
-   '''
-
-    
-
 #dbpath = r"C:\Users\brinpy\Documents\sql\alarms.db"
 
 choices = ['MF', 'J']
 choices2 = ["Frequency", "Duration"]
 
-#welcome to global variables, RIP
+#welcome to global variables
 spacelist = []
 def genReport():
     #get report

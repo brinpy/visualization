@@ -2,7 +2,7 @@ from sqlite3 import Error
 import os
 import xlrd
 from sql_func import execute_query, create_connection, convertTime
-
+import time
 file = r'C:\Users\brinpy\Downloads\AlarmsHistory.xls'
 wb = xlrd.open_workbook(file) 
 sheet = wb.sheet_by_index(0) 
@@ -12,9 +12,17 @@ dbpath = r"\\ant\dept-na\FTW1\Support\Facilities\z_Alarms\alarms.db"
 connection = create_connection(dbpath)
 row = 9
 cur = connection.cursor()
-
+countme = 0
 runagain = True
+lasttime = int(time.time() * 1000)
 while runagain:
+    if countme % 100 == 0:
+        countme += 1
+        print("Processed " + str(countme) + " records in " + str((time.time()*1000) - lasttime) + " ms")
+        lasttime = int(time.time() * 1000)
+
+    else:
+        countme += 1
     if sheet.cell_value(row, 0) == sheet.cell_value(-1, 0):
         runagain = False
         print("END OF FILE")
